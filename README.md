@@ -25,3 +25,15 @@ Using the same section of a otp to encrypt and send different messages is in dir
 To send distinct messages encrypted using the same(or overlapping) portion of the pad is considered subversive behavior. Clients should distrust any other client that does so. 
 
 To avoid having to coordinate between Alice and Bob, Alice will send messages encrypted from the start of the pad, and Bob will send messages encrypted from the end of the pad. They may continue sending messages until meeting in the middle. Using a duplicate file with the line order reversed for decryption may be helpful. 
+
+## Message Format
+
+A OTP encrypted message is a wrapper that may contain a plain text message, or may wrap a more complex type such as RCS messages, or ActivityPup messages. 
+
+Each message when encrypted will look like a long series of random hexadecimal characters. The only pattern should be that the length of these messages will be a multiple of 128. 
+
+When properly decrypted, a message will start with the characters `OTP-Communications formatted message` followed by a newline (CRLF), followed by a line specifying the version of the protocol. 
+
+The third line will consist of metadata. Probably represented using EDN or similar. Metadata should include the length of the wrapped message, and how that wrapped message should be interpreted. Similarly to how the webs (MIME) content type works. 
+
+## 
