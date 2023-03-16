@@ -24,4 +24,4 @@ For convenience, the complementary file `{UUID for Bob}_{UUID for Alice}.v{proto
 Using the same section of a otp to encrypt and send different messages is in direct violation of the assumptions that make a otp unbreakable and future safe. 
 To send distinct messages encrypted using the same(or overlapping) portion of the pad is considered subversive behavior. Clients should distrust any other client that does so. 
 
-To avoid having to coordinate between Alice and Bob, Alice will send messages encrypted from the start of the pad, and Bob will send messages encrypted from the end of the pad. Using a duplicate file with the line order reversed for decryption may be helpful. 
+To avoid having to coordinate between Alice and Bob, Alice will send messages encrypted from the start of the pad, and Bob will send messages encrypted from the end of the pad. They may continue sending messages until meeting in the middle. Using a duplicate file with the line order reversed for decryption may be helpful. 
