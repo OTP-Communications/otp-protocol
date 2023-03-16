@@ -3,7 +3,8 @@
 Describe the api, format, &amp; syntax of the protocol used in our otp encrypted communications
 
 ## What this project is not
-This is not a project to implement quantum proof encrypted video calls. Or quantum proof voice chat. 
+This is not a project to implement quantum proof encrypted video calls. Or quantum proof voice chat. The mvp will be sending simple plaintext messages, but we want to build upon/wrap a protocol such as [RCS](https://en.wikipedia.org/wiki/Rich_Communication_Services) or [ActivityPub](https://activitypub.rocks/) 
+in order to support other chat capabilities such as delivery/read status indicators. 
 
 This project will not manage users or login information. The server only stores and retrieves the encrypted messages and their metadata, but anyone can send or retrieve them. 
 
@@ -37,10 +38,15 @@ To avoid having to coordinate between Alice and Bob, Alice will send messages en
 
 A OTP encrypted message is a wrapper that may contain a plain text message, or may wrap a more complex type such as RCS messages, or ActivityPup messages. 
 
+### Encrypted
 Each message when encrypted will look like a long series of random hexadecimal characters. The only pattern should be that the length of these messages will be a multiple of 128. 
+
+### Decrypted
 
 When properly decrypted, a message will start with the characters `OTP-Communications formatted message` followed by a newline (CRLF), followed by a line specifying the version of the protocol. 
 
-The third line will consist of metadata. Probably represented using EDN or similar. Metadata should include the length of the wrapped message, and how that wrapped message should be interpreted. Similarly to how the webs (MIME) content type works. 
+The third line will consist of metadata. Probably represented using EDN or similar. Metadata should include the length of the wrapped message, and how that wrapped message should be interpreted. Similarly to how the webs ([MIME](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types)) content type works. For the mvp we can probably use `text/plain` 
+
+The rest of the message is the embedded data/message. This may be textual, or it may be binary data interpreted as the metadata line specifies. Most decrypted messages will have some garbage bytes at the end. (because we consume our `.otp` files one line at a time)
 
 ## 
