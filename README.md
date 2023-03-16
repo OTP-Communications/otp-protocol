@@ -2,6 +2,13 @@
 
 Describe the api, format, &amp; syntax of the protocol used in our otp encrypted communications
 
+## What this project is not
+This is not a project to implement quantum proof encrypted video calls. Or quantum proof voice chat. 
+
+This project will not manage users or login information. The server only stores and retrieves the encrypted messages and their metadata, but anyone can send or retrieve them. 
+
+
+
 ## Alice and Bob
 
 Alice can be represented and addressed by a random UUID consisting of an 8 digit long hexadecimal number. This corresponds to a 64 bit integer. Same goes for Bob. This space should be large enough to make the possibility of collisions acceptable. 
