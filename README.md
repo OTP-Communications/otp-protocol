@@ -40,17 +40,15 @@ The rest of the message is the embedded data/message. This may be textual, or it
 
 
 ### Storing One-Time-Pads
-One time pads are saved in a file with a `.otp` suffix. This should be a UTF-8 encoded file. A `.otp` file may consist of any number of lines. 
-Each line is composed of has 128 characters of hexadecimal as shown below(except that the hexadecimal characters will be randomized in actual usage). Lines should be CRLF terminated. 
+One time pads are saved in a file with a `.otp` suffix. This should be a UTF-8 encoded file. 
 
-Any line not consisting solely of 128 hexadecimal characters will be considered metadata, and can safely be ignored in version 0.0.1. 
-This is specified in hopes of making some level of backwards/forwards compatibility possible. 
+The first line of the file is for metadata. The rest of the file consists of hexadecimal characters, which constitute the one-time-pad. 
 
 <img width="1188" alt="image" src="https://user-images.githubusercontent.com/24924799/225484177-ea5c9d98-d92d-4a81-810c-5e03ab639c9d.png">
 
 It is suggested that the file be named following a convention similar to `{UUID for Alice}_{UUID for Bob}.v{protocol version}.otp` though this may not prove neccessary. 
 
-For convenience, the complementary file `{UUID for Bob}_{UUID for Alice}.v{protocol version}.otp` may be created with the lines order reversed. 
+For convenience, the complementary file `{UUID for Bob}_{UUID for Alice}.v{protocol version}.otp` may be created with the pad byte order reversed. 
 
 ### Reuse of One-Time-Pads considered harmful
 Using the same section of a otp to encrypt and send different messages is in direct violation of the assumptions that make a otp unbreakable and future safe. 
@@ -66,7 +64,7 @@ Suggested generation size is ~ 1 MB. I think that this is sufficient for sending
 
 If Alice generates the OTP, a copy must also be given to Bob. With mobile devices this may be done using NFC or Bluetooth communication. Generating a QR code on one device, and scanning it with the other will likely not provide sufficient bandwidth. 
 
-For the mpv, the client application should be able to manually import a `.otp` file, and save it with required metadata about the Contact and server endpoints. This file may be securely transfered between devices with something like a thumb drive and OTG adaptor. 
+For the mpv, the client application should be able to manually import a `.otp` file, and save it with required metadata about the Contact and server endpoints. This file may be securely transfered between devices with something like a thumb drive and OTG adaptor. Sharing the file with bluetooth also works admirably. 
 
 
 ## Server API
